@@ -46,11 +46,13 @@ const Login = () => {
       } else {
         enqueueSnackbar("wrong password", {
           variant: "error",
+          preventDuplicate: true,
         });
       }
     } else {
       enqueueSnackbar("user not registered", {
         variant: "error",
+        preventDuplicate: true,
       });
     }
   };
@@ -86,6 +88,7 @@ const Login = () => {
                 required: true,
                 onChange: handleChange,
                 value: details.username,
+                autoFocus: true,
               }}
             />
             <Input

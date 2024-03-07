@@ -6,7 +6,6 @@ const Card = ({ thumbnail, title, description }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [inDeals, setInDeals] = useState(false);
   const handleAddToDeals = () => {
-    // Handle Add to Deals functionality
     enqueueSnackbar("successfully added to deals", {
       variant: "success",
     });
@@ -14,7 +13,6 @@ const Card = ({ thumbnail, title, description }) => {
   };
 
   const handleCheckDetails = () => {
-    // Handle Check Details functionality
     enqueueSnackbar("feature in process", {
       variant: "info",
     });

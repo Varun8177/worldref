@@ -2,10 +2,21 @@ import React, { useContext, useState } from "react";
 import { IoMdLogOut } from "react-icons/io";
 import { BsChevronDown } from "react-icons/bs";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useSnackbar } from "notistack";
 
 const ProfileIcon = () => {
   const [show, setshow] = useState(false);
   const { handleUserChange } = useContext(AuthContext);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleLogout = () => {
+    enqueueSnackbar("successfully logged out", {
+      variant: "success",
+      preventDuplicate: true,
+    });
+    handleUserChange(null);
+  };
+
   return (
     <div
       className="relative bg-black"
@@ -32,7 +43,7 @@ const ProfileIcon = () => {
               {
                 <button
                   className="flex min-w-fit items-center gap-2"
-                  onClick={() => handleUserChange(null)}
+                  onClick={handleLogout}
                 >
                   <IoMdLogOut
                     className="rotate-[270deg] text-red-500"

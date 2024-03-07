@@ -15,7 +15,7 @@ root.render(
           vertical: "top",
           horizontal: "left",
         }}
-        preventDuplicate
+        maxSnack={3}
         autoHideDuration={3000}
       >
         <AuthContextProvider>
