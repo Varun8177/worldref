@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "../components/constants/Input";
 import { useMediaQuery } from "react-responsive";
 import { twMerge } from "tailwind-merge";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
-  const [details, setDetails] = useState({ email: "", password: "" });
+  const [details, setDetails] = useState({ username: "", password: "" });
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const { handleUserChange } = useContext(AuthContext);
 
   const mobileScreen = useMediaQuery({
     query: "(max-width: 850px)",
@@ -18,10 +20,13 @@ const Login = () => {
     const { name, value } = e.target;
     setDetails({ ...details, [name]: value });
   };
+
   const emailExists = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     if (users?.length) {
-      const exists = users?.filter((user) => user.email === details.email);
+      const exists = users?.filter(
+        (user) => user.username === details.username,
+      );
       if (exists.length) {
         return { exists: true, user: exists[0] };
       } else {
@@ -36,6 +41,7 @@ const Login = () => {
     const { exists, user } = emailExists();
     if (exists) {
       if (user.password === details.password) {
+        handleUserChange(user);
         navigate("/");
       } else {
         enqueueSnackbar("wrong password", {
@@ -73,15 +79,15 @@ const Login = () => {
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
-              label="Email"
+              label="Username"
               attributes={{
-                id: "email",
-                name: "email",
-                type: "email",
-                placeholder: "example@email.com",
+                id: "username",
+                name: "username",
+                type: "text",
+                placeholder: "example123",
                 required: true,
                 onChange: handleChange,
-                value: details.email,
+                value: details.username,
               }}
             />
             <Input

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const Signup = () => {
-  const [details, setDetails] = useState({ email: "", password: "" });
+  const [details, setDetails] = useState({ username: "", password: "" });
   const { enqueueSnackbar } = useSnackbar();
   const mobileScreen = useMediaQuery({
     query: "(max-width: 850px)",
@@ -17,7 +17,9 @@ const Signup = () => {
   const alreadyExists = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     if (users?.length) {
-      const exists = users?.filter((user) => user.email === details.email);
+      const exists = users?.filter(
+        (user) => user.username === details.username,
+      );
       if (exists.length) {
         return { exists: true, users: users };
       } else {
@@ -75,15 +77,15 @@ const Signup = () => {
 
           <form onSubmit={handleSignup} className="space-y-4">
             <Input
-              label="Email"
+              label="Username"
               attributes={{
-                id: "email",
-                name: "email",
-                type: "email",
-                placeholder: "example@email.com",
+                id: "username",
+                name: "username",
+                type: "text",
+                placeholder: "example123",
                 required: true,
                 onChange: handleChange,
-                value: details.email,
+                value: details.username,
               }}
             />
             <Input
