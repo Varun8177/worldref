@@ -1,4 +1,4 @@
-TrolleyCart is a user-friendly web app for discovering and saving deals. It features secure login/register functionality. Authenticated users enjoy a personalized home page with cards showcasing deals, each with "Add to Deals" and "Check Details" buttons for convenient deal management. DealSpot offers a seamless experience, prioritizing user convenience and security.
+TrolleyCart is a user-friendly web app for discovering and saving deals. It features secure login/register functionality. Authenticated users enjoy a personalized home page with cards showcasing deals, each with "Add to Deals" and "Check Details" buttons for convenient deal management. TrolleyCart offers a seamless experience, prioritizing user convenience and security.
 
 # Installation
  1. clone the repository (use tools like gitbash,terminal,vscode)
