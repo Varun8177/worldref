@@ -100,7 +100,9 @@ const Login = () => {
                 value: details.password,
               }}
             />
-            <p className="text-right text-xs text-blue-600">Forgot Password?</p>
+            <p className="cursor-pointer text-right text-xs text-blue-600">
+              Forgot Password?
+            </p>
             <button
               type="submit"
               className="h-[52px] w-full rounded-lg bg-black text-center text-white"
