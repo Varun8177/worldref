@@ -42,11 +42,13 @@ const Signup = () => {
       localStorage.setItem("users", JSON.stringify([...users, details]));
       enqueueSnackbar("successfully registered", {
         variant: "success",
+        preventDuplicate: true,
       });
       navigate("/login");
     } else {
       enqueueSnackbar("user already registered", {
         variant: "error",
+        preventDuplicate: true,
       });
     }
   };
@@ -94,6 +96,7 @@ const Signup = () => {
                 required: true,
                 onChange: handleChange,
                 value: details.username,
+                autoFocus: true,
               }}
             />
             <Input
