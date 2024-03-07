@@ -3,7 +3,7 @@ const { createContext, useState } = require("react");
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   const handleUserChange = (val) => {
     setUser(val);

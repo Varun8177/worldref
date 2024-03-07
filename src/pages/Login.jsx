@@ -56,26 +56,24 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center p-4">
+    <div className="flex h-screen max-h-screen items-center justify-center bg-[#242424] p-4 text-white">
       <div className="flex grow items-center justify-center">
         <div className="w-full max-w-[388px] space-y-4">
           {mobileScreen && (
-            <div className={"h-[180px] w-full"}>
+            <div className="h-[180px] w-full">
               <img
                 src="https://res.cloudinary.com/megamart/image/upload/f_auto,q_auto/v1/worldref/lztlc4pnvbuanpauarga"
                 alt="login-art"
-                className={"h-full w-full rounded-lg object-cover"}
+                className="h-full w-full rounded-lg object-cover"
               />
             </div>
           )}
           <h1 className="text-2xl font-semibold">Welcome Back 👋</h1>
           <div>
-            <p className="text-sm text-[#313957]">
+            <p className="text-sm text-gray-400">
               Today is a new day. It's your day. You shape it.
             </p>
-            <p className="text-sm text-[#313957]">
-              Sign in to start managing your projects.
-            </p>
+            <p className="text-sm text-gray-400">Sign in to start shopping.</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
@@ -105,7 +103,7 @@ const Login = () => {
             <p className="text-right text-xs text-blue-600">Forgot Password?</p>
             <button
               type="submit"
-              className="h-[52px] w-full rounded-lg bg-[#162D3A] text-center text-white"
+              className="h-[52px] w-full rounded-lg bg-black text-center text-white"
             >
               Sign in
             </button>

@@ -51,7 +51,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center p-4">
+    <div className="flex h-screen max-h-screen items-center justify-center bg-[#242424] p-4 text-white">
       <div className="flex grow items-center justify-center">
         <div className="w-full max-w-[388px] space-y-4">
           {mobileScreen && (
@@ -63,14 +63,16 @@ const Signup = () => {
               />
             </div>
           )}
-          <h1 className="text-2xl font-semibold">Welcome to Card World</h1>
+          <h1 className="text-2xl font-semibold text-white">
+            Welcome to TrolleyCart
+          </h1>
           <div>
             <div>
-              <p className="text-sm text-[#313957]">
+              <p className="text-sm text-gray-400">
                 Today is a new day. It's your day. You shape it.
               </p>
-              <p className="text-sm text-[#313957]">
-                Sign up to start managing your projects.
+              <p className="text-sm text-gray-400">
+                Sign up to start shopping.
               </p>
             </div>
           </div>
@@ -102,7 +104,7 @@ const Signup = () => {
             />
             <button
               type="submit"
-              className="h-[52px] w-full rounded-lg bg-[#162D3A] text-center text-white hover:bg-slate-800"
+              className="h-[52px] w-full rounded-lg bg-black text-center text-white hover:bg-black"
             >
               sign up
             </button>

@@ -1,3 +1,4 @@
+import PrivateRoute from "../components/Auth/PrivateRoute";
 import Home from "./Home";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -5,7 +6,11 @@ import Signup from "./Signup";
 const Pages = [
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <PrivateRoute>
+        <Home />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/login",
