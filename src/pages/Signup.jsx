@@ -31,6 +31,12 @@ const Signup = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
+    if (details.password.length < 6) {
+      enqueueSnackbar("password should be minimum 6 characters", {
+        variant: "error",
+      });
+      return;
+    }
     const { exists, users } = alreadyExists();
     if (!exists) {
       localStorage.setItem("users", JSON.stringify([...users, details]));

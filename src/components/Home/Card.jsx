@@ -15,6 +15,9 @@ const Card = ({ thumbnail, title, description }) => {
 
   const handleCheckDetails = () => {
     // Handle Check Details functionality
+    enqueueSnackbar("feature in process", {
+      variant: "info",
+    });
   };
 
   return (
@@ -34,7 +37,6 @@ const Card = ({ thumbnail, title, description }) => {
       </div>
       <div className="flex gap-4">
         <button
-          type="submit"
           className="flex h-[52px] grow items-center justify-center rounded-lg bg-[#273c65] text-center text-xs text-white disabled:cursor-not-allowed"
           onClick={handleAddToDeals}
           disabled={inDeals}
@@ -43,8 +45,8 @@ const Card = ({ thumbnail, title, description }) => {
           <MdBookmarkAdd size={20} />
         </button>
         <button
-          type="submit"
           className="h-[52px] grow rounded-lg bg-[#273c65] text-center text-xs text-white"
+          onClick={handleCheckDetails}
         >
           Check Details
         </button>
