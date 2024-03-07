@@ -1,58 +1,59 @@
-import React, { useContext, useState } from "react";
-import Input from "../components/constants/Input";
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import Input from "../components/constants/Input";
 import { twMerge } from "tailwind-merge";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { AuthContext } from "../contexts/AuthContext";
 
-const Login = () => {
+const Signup = () => {
   const [details, setDetails] = useState({ username: "", password: "" });
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
-  const { handleUserChange } = useContext(AuthContext);
-
   const mobileScreen = useMediaQuery({
     query: "(max-width: 850px)",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDetails({ ...details, [name]: value });
-  };
+  const navigate = useNavigate();
 
-  const emailExists = () => {
+  const alreadyExists = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     if (users?.length) {
       const exists = users?.filter(
         (user) => user.username === details.username,
       );
       if (exists.length) {
-        return { exists: true, user: exists[0] };
+        return { exists: true, users: users };
       } else {
-        return { exists: false, user: null };
+        return { exists: false, users: users };
       }
     }
-    return { exists: false, user: null };
+    return { exists: false, users: users };
   };
 
-  const handleLogin = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    const { exists, user } = emailExists();
-    if (exists) {
-      if (user.password === details.password) {
-        handleUserChange(user);
-        navigate("/");
-      } else {
-        enqueueSnackbar("wrong password", {
-          variant: "error",
-        });
-      }
+    if (details.password.length < 6) {
+      enqueueSnackbar("password should be minimum 6 characters", {
+        variant: "error",
+      });
+      return;
+    }
+    const { exists, users } = alreadyExists();
+    if (!exists) {
+      localStorage.setItem("users", JSON.stringify([...users, details]));
+      enqueueSnackbar("successfully registered", {
+        variant: "success",
+      });
+      navigate("/login");
     } else {
-      enqueueSnackbar("user not registered", {
+      enqueueSnackbar("user already registered", {
         variant: "error",
       });
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDetails({ ...details, [name]: value });
   };
 
   return (
@@ -60,22 +61,29 @@ const Login = () => {
       <div className="flex grow items-center justify-center">
         <div className="w-full max-w-[388px] space-y-4">
           {mobileScreen && (
-            <div className="h-[180px] w-full">
+            <div className={"h-[180px] w-full"}>
               <img
                 src="https://res.cloudinary.com/megamart/image/upload/f_auto,q_auto/v1/worldref/lztlc4pnvbuanpauarga"
                 alt="login-art"
-                className="h-full w-full rounded-lg object-cover"
+                className={"h-full w-full rounded-lg object-cover"}
               />
             </div>
           )}
-          <h1 className="text-2xl font-semibold">Welcome Back 👋</h1>
+          <h1 className="text-2xl font-semibold text-white">
+            Welcome to TrolleyCart
+          </h1>
           <div>
-            <p className="text-sm text-gray-400">
-              Today is a new day. It's your day. You shape it.
-            </p>
-            <p className="text-sm text-gray-400">Sign in to start shopping.</p>
+            <div>
+              <p className="text-sm text-gray-400">
+                Today is a new day. It's your day. You shape it.
+              </p>
+              <p className="text-sm text-gray-400">
+                Sign up to start shopping.
+              </p>
+            </div>
           </div>
-          <form onSubmit={handleLogin} className="space-y-4">
+
+          <form onSubmit={handleSignup} className="space-y-4">
             <Input
               label="Username"
               attributes={{
@@ -100,20 +108,17 @@ const Login = () => {
                 value: details.password,
               }}
             />
-            <p className="cursor-pointer text-right text-xs text-blue-600">
-              Forgot Password?
-            </p>
             <button
               type="submit"
-              className="h-[52px] w-full rounded-lg bg-black text-center text-white"
+              className="h-[52px] w-full rounded-lg bg-black text-center text-white hover:bg-black"
             >
-              Sign in
+              sign up
             </button>
             <p className="text-center text-xs">
-              not a user?
-              <Link className="text-blue-600" to="/register">
+              Already a user?
+              <Link className="text-blue-600" to="/login">
                 {" "}
-                sign up
+                Login
               </Link>
             </p>
           </form>
@@ -138,4 +143,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

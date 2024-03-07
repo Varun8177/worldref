@@ -1,17 +1,15 @@
 const { createContext, useState } = require("react");
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const handleAuthChange = (val) => {
-    if (typeof val === Boolean) {
-      setAuth(val);
-    }
+  const handleUserChange = (val) => {
+    setUser(val);
   };
   return (
-    <AuthContext.Provider value={{ auth, handleAuthChange }}>
+    <AuthContext.Provider value={{ user, handleUserChange }}>
       {children}
     </AuthContext.Provider>
   );

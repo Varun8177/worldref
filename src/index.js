@@ -4,14 +4,24 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./contexts/AuthContext";
+import { SnackbarProvider } from "notistack";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        preventDuplicate
+        autoHideDuration={3000}
+      >
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
+      </SnackbarProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );
