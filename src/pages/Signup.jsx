@@ -1,52 +1,51 @@
 import React, { useState } from "react";
-import Input from "../components/constants/Input";
 import { useMediaQuery } from "react-responsive";
+import Input from "../components/constants/Input";
 import { twMerge } from "tailwind-merge";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
-const Login = () => {
+const Signup = () => {
   const [details, setDetails] = useState({ email: "", password: "" });
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
-
   const mobileScreen = useMediaQuery({
     query: "(max-width: 850px)",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDetails({ ...details, [name]: value });
-  };
-  const emailExists = () => {
+  const navigate = useNavigate();
+
+  const alreadyExists = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     if (users?.length) {
       const exists = users?.filter((user) => user.email === details.email);
       if (exists.length) {
-        return { exists: true, user: exists[0] };
+        return { exists: true, users: users };
       } else {
-        return { exists: false, user: null };
+        return { exists: false, users: users };
       }
     }
-    return { exists: false, user: null };
+    return { exists: false, users: users };
   };
 
-  const handleLogin = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    const { exists, user } = emailExists();
-    if (exists) {
-      if (user.password === details.password) {
-        navigate("/");
-      } else {
-        enqueueSnackbar("wrong password", {
-          variant: "error",
-        });
-      }
+    const { exists, users } = alreadyExists();
+    if (!exists) {
+      localStorage.setItem("users", JSON.stringify([...users, details]));
+      enqueueSnackbar("successfully registered", {
+        variant: "success",
+      });
+      navigate("/login");
     } else {
-      enqueueSnackbar("user not registered", {
+      enqueueSnackbar("user already registered", {
         variant: "error",
       });
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDetails({ ...details, [name]: value });
   };
 
   return (
@@ -62,16 +61,19 @@ const Login = () => {
               />
             </div>
           )}
-          <h1 className="text-2xl font-semibold">Welcome Back 👋</h1>
+          <h1 className="text-2xl font-semibold">Welcome to Card World</h1>
           <div>
-            <p className="text-sm text-[#313957]">
-              Today is a new day. It's your day. You shape it.
-            </p>
-            <p className="text-sm text-[#313957]">
-              Sign in to start managing your projects.
-            </p>
+            <div>
+              <p className="text-sm text-[#313957]">
+                Today is a new day. It's your day. You shape it.
+              </p>
+              <p className="text-sm text-[#313957]">
+                Sign up to start managing your projects.
+              </p>
+            </div>
           </div>
-          <form onSubmit={handleLogin} className="space-y-4">
+
+          <form onSubmit={handleSignup} className="space-y-4">
             <Input
               label="Email"
               attributes={{
@@ -96,18 +98,17 @@ const Login = () => {
                 value: details.password,
               }}
             />
-            <p className="text-right text-xs text-blue-600">Forgot Password?</p>
             <button
               type="submit"
-              className="h-[52px] w-full rounded-lg bg-[#162D3A] text-center text-white"
+              className="h-[52px] w-full rounded-lg bg-[#162D3A] text-center text-white hover:bg-slate-800"
             >
-              Sign in
+              sign up
             </button>
             <p className="text-center text-xs">
-              not a user?
-              <Link className="text-blue-600" to="/register">
+              Already a user?
+              <Link className="text-blue-600" to="/login">
                 {" "}
-                sign up
+                Login
               </Link>
             </p>
           </form>
@@ -132,4 +133,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
