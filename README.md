@@ -17,6 +17,12 @@ TrolleyCart is a user-friendly web app for discovering and saving deals. It feat
 - react-responsive
 - notistack
 
+## Application flow
+ - User should register themself by adding their credentials in the register page.
+ - It will redirect you to the login page on successfull registration.
+ - Once the user is registered, user can use his credentials in the login page to login
+ - After successfull login, user will be redirected to home page where he can have a look at all the products and use the features. 
+
 ## screen previews
 1. login page
 ![image](https://github.com/Varun8177/worldref/assets/112754116/bc813fc8-4d15-41d0-8f74-c90832cf6133)
